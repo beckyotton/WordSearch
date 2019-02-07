@@ -1,7 +1,12 @@
 from random import*
 
+def createletters(letter):
+    for m in range(0, 26):
+        letter.append(alphabet)
+
 
 def createboard(level, option):
+    print("function1")
     if option.lower() == "easy":
         level = 7
     elif option.lower() == "medium":
@@ -23,27 +28,25 @@ def word(lines, choose):
             chosen.append(wordC.strip())
             choose = choose + 1
 
-
-def addwords():
-    direction = randint(1, 2)
+def addwords(level):
+    print("func3")
     for i in range(0, level):
         walk = 1
+        direction = randint(1, 2)
         while walk == 1:
+            xlocation = randint(0, level - len(chosen[i]))
+            ylocation = randint(0, level - 1)
             if len(chosen[i]) == 3:
-                xlocation = randint(0, level-3)
-                ylocation = randint(0, level-1)
-                if board[ylocation][xlocation] == " " and board[ylocation][xlocation+1] == " " and board[ylocation][xlocation+2] == " ":
+                if board[ylocation][xlocation] == " " and board[ylocation][xlocation + 1] == " " and board[ylocation][xlocation + 2] == " ":
                     splitword = list(chosen[i])
                     if direction == 1:
                         for j in range(0, len(splitword)):
                             board[ylocation][xlocation+j] = (splitword[j])
                     else:
                         for j in range(0, len(splitword)):
-                            board[ylocation][xlocation+3-j] = (splitword[j])
-                    walk = 2
+                            board[ylocation][xlocation + 2 - j] = (splitword[j])
+                walk = 2
             elif len(chosen[i]) == 4:
-                xlocation = randint(0, level-4)
-                ylocation = randint(0, level-1)
                 if board[ylocation][xlocation] == " " and board[ylocation][xlocation + 1] == " " and board[ylocation][xlocation+2] == " " and board[ylocation][xlocation+3] == " ":
                     splitword = list(chosen[i])
                     if direction == 1:
@@ -51,11 +54,9 @@ def addwords():
                             board[ylocation][xlocation + j] = (splitword[j])
                     else:
                         for j in range(0, len(splitword)):
-                            board[ylocation][xlocation + 4 - j] = (splitword[j])
-                    walk = 2
+                            board[ylocation][xlocation + 3 - j] = (splitword[j])
+                walk = 2
             elif len(chosen[i]) == 5:
-                xlocation = randint(0, level - 5)
-                ylocation = randint(0, level - 1)
                 if board[ylocation][xlocation] == " " and board[ylocation][xlocation + 1] == " " and board[ylocation][xlocation + 2] == " " and board[ylocation][xlocation + 3] == " " and board[ylocation][xlocation + 4]:
                     splitword = list(chosen[i])
                     if direction == 1:
@@ -63,14 +64,10 @@ def addwords():
                             board[ylocation][xlocation + j] = (splitword[j])
                     else:
                         for j in range(0, len(splitword)):
-                            board[ylocation][xlocation + 5 - j] = (splitword[j])
-                    walk = 2
+                            board[ylocation][xlocation + 4 - j] = (splitword[j])
+                walk = 2
             elif len(chosen[i]) == 6:
-                xlocation = randint(0, level - 5)
-                ylocation = randint(0, level - 1)
-                if board[ylocation][xlocation] == " " and board[ylocation][xlocation + 1] == " " and board[ylocation][
-                    xlocation + 2] == " " and board[ylocation][xlocation + 3] == " " and board[ylocation][
-                    xlocation + 4]:
+                if board[ylocation][xlocation] == " " and board[ylocation][xlocation + 1] == " " and board[ylocation][xlocation + 2] == " " and board[ylocation][xlocation + 3] == " " and board[ylocation][xlocation + 4] and board[ylocation][xlocation + 5] == "0":
                     splitword = list(chosen[i])
                     if direction == 1:
                         for j in range(0, len(splitword)):
@@ -78,8 +75,19 @@ def addwords():
                     else:
                         for j in range(0, len(splitword)):
                             board[ylocation][xlocation + 5 - j] = (splitword[j])
+                walk = 2
 
 
+def addletters(level, letter):
+    for x in range(0, level):
+        for y in range(0, level):
+            v = randint(0, 1)
+            if board[x][y] == ' ':
+                board[x][y] = letter[v]
+
+
+def user(found):
+    
 '''
 def add():
     length =
@@ -94,15 +102,29 @@ choose = 0
 board = []
 chosen = []
 splitword = []
+letter = ['x', 'x']
 lines = open("words.txt", "r").readlines()
-
+alphabet = open("alphabet.txt", "r").readlines()
+#letter.append(alphabet.strip())
+print(letter)
+'''
 option = input("Choose level: Easy, Medium, Hard.\n")
 while option.lower() != "easy" and option.lower() != "medium" and option.lower() != "hard":
     option = input("Choose level: Easy, Medium, Hard.\n")
+'''
+while True:
+    option = input("Choose level: Easy, Medium, Hard.\n").lower()
+    if option == 'easy' or option == 'medium' or option == 'hard':
+        print("good")
+        break
+    else:
+        print("bad")
+
 level = createboard(level, option)
-(word(lines, choose))
-addwords()
+word(lines, choose)
+addwords(level)
 print(chosen)
+addletters(level, letter)
 
 for i in range(level):
     print(board[i])
