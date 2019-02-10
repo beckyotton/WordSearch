@@ -93,7 +93,7 @@ mango
 blame
 money
 oppose
-acquit
+bump
 retain
 age
 sum
