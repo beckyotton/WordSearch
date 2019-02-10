@@ -1,8 +1,8 @@
 plane
 jolly
 joy
-scale
-poison
+sun
+moon
 wide
 cook
 rigid
